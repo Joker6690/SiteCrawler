@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 
 public final class SiteCrawler {
 
+    private static final String HEADER_KEY = "User-Agent";
+    private static final String HEADER_VALUE = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36";
+
     private final Set<ContentDto> result = new HashSet<>();
 
     public Set<ContentDto> crawl(Set<ContentDto> dtos) {
@@ -59,12 +62,12 @@ public final class SiteCrawler {
         Set<String> links = new HashSet<>();
 
         URLConnection connection = url.openConnection();
-        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36");
+        connection.setRequestProperty(HEADER_KEY, HEADER_VALUE);
         connection.connect();
 
         try (InputStream in = connection.getInputStream()) {
-            var HTMLPage = new String(in.readAllBytes(), StandardCharsets.UTF_8);
-            Matcher pageMatcher = createMatcher(RegexConstants.ANCHOR_TAG.getValue(), HTMLPage);
+            var htmlPage = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+            Matcher pageMatcher = createMatcher(RegexConstants.ANCHOR_TAG.getValue(), htmlPage);
             while (pageMatcher.find()) {
                 var tmp = pageMatcher.group().strip();
                 links.add(tmp);

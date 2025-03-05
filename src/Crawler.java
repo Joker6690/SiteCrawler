@@ -4,16 +4,16 @@ import java.util.concurrent.Callable;
 public class Crawler implements Callable<Set<ContentDto>> {
 
     private ContentDto dto;
-    private SiteCrawler crawler;
+    private SiteCrawler siteCrawler;
 
-    public Crawler(ContentDto dto, SiteCrawler crawler) {
+    public Crawler(ContentDto dto, SiteCrawler siteCrawler) {
         this.dto = dto;
-        this.crawler = crawler;
+        this.siteCrawler = siteCrawler;
     }
 
     @Override
     public Set<ContentDto> call() {
-        return crawler.crawl(Set.of(dto));
+        return siteCrawler.crawl(Set.of(dto));
     }
 
 }

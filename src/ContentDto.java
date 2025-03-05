@@ -46,10 +46,7 @@ public class ContentDto implements Comparable<ContentDto> {
 
     @Override
     public String toString() {
-        return "ContentDto{" +
-                "label='" + label + '\'' +
-                ", link='" + link + '\'' +
-                ", done=" + done +
-                '}';
+        return "label='" + label + '\'' +
+                ", link='" + link + '\'';
     }
 }
